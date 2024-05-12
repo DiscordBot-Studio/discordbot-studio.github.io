@@ -5,24 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Successful</title>
-</head>
-<body>
     <script>
-        function getUrlParameter(name) {
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(window.location.href);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        document.addEventListener('DOMContentLoaded', function() {
+            var authorizationCode = getAuthorizationCodeFromUrl();
+            if (authorizationCode) {
+                returnAuthorizationCode(authorizationCode);
+            }
+        });
+
+        function getAuthorizationCodeFromUrl() {
+            var searchParams = new URLSearchParams(window.location.search);
+            return searchParams.get('code');
         }
 
-        var authorizationCode = getUrlParameter('code');
-
-        if (authorizationCode) {
+        function returnAuthorizationCode(authorizationCode) {
             var redirectUrl = 'com.eqozqq.discordbotstudio://discordcallback?code=' + authorizationCode;
             window.location.href = redirectUrl;
         }
     </script>
+</head>
+<body>
+    <p>Redirecting...</p>
 </body>
 </html>
